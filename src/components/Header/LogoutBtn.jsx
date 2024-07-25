@@ -11,7 +11,7 @@ function LogoutBtn() {
     });
   }
   return (
-    <button onClick={handleLogout} className='px-4 py-1 bg-yellow-500 text-black shadow-[4px_4px_0px_0px_rgba(109,40,217)] font-semibold rounded'>
+    <button onClick={handleLogout} className='ml-1 px-4 py-1 bg-yellow-500 text-black shadow-[4px_4px_0px_0px_rgba(109,40,217)] font-semibold rounded'>
         Logout
     </button>
   )
