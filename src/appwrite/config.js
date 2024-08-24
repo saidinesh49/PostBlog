@@ -15,10 +15,10 @@ export class Service{
         this.bucket=new Storage(this.client);
     }
 
-    async createPost({title, slug, content, featuredImage, status, userID}){
+    async createPost({title, slug, content, featuredImage, status, userId}){
         try{
           return await this.databases.createDocument(
-                conf.appwrite_DATABASE_ID,
+                '669942e6001175c2ebf7',
                 conf.appwrite_COLLECTION_ID,
                 slug,
                 {
@@ -26,7 +26,7 @@ export class Service{
                     content,
                     featuredImage,
                     status,
-                    userID
+                    userId
                 }
             )
         }
@@ -38,7 +38,7 @@ export class Service{
     async updatePost(slug,{title, content, featuredImage, status}){
         try{
          return await this.databases.updateDocument(
-                    conf.appwrite_DATABASE_ID,
+                    '669942e6001175c2ebf7',
                     conf.appwrite_COLLECTION_ID,
                     slug,
                     {
@@ -57,7 +57,7 @@ export class Service{
     async deletePost(slug){
         try{
             return await this.databases.deleteDocument(
-                conf.appwrite_DATABASE_ID,
+                '669942e6001175c2ebf7',
                 conf.appwrite_COLLECTION_ID,
                 slug
             );
@@ -71,8 +71,9 @@ export class Service{
 
     async getPost(slug){
         try{
-            return await this.bucket.getFile(
-                conf.appwrite_BUCKET_ID,
+            return await this.databases.getDocument(
+                '669942e6001175c2ebf7',
+                conf.appwrite_COLLECTION_ID,
                 slug
             );
         }
@@ -85,7 +86,7 @@ export class Service{
     async getPosts(queries=[Query.equal("status","active")]){
         try{
             return await this.databases.listDocuments(
-                conf.appwrite_DATABASE_ID,
+                '669942e6001175c2ebf7',
                 conf.appwrite_COLLECTION_ID,
                 queries
             );
@@ -96,12 +97,14 @@ export class Service{
     }
 
     async uploadFile(file){
+        const idunique=ID.unique();
         try{
             await this.bucket.createFile(
                 conf.appwrite_BUCKET_ID,
-                ID.unique(),
+                idunique,
                 file
             );
+            return idunique;
         }
         catch(error){
             console.log("Appwrite service::while uploading::",error);
@@ -124,10 +127,16 @@ export class Service{
     }
 
     getFilePreview(fileId){
-        return this.bucket.getFilePreview(
+        try {
+           return this.bucket.getFilePreview(
             conf.appwrite_BUCKET_ID,
             fileId
-        );
+            );
+        }
+        catch(error){
+            console.log("Appwrite service::while getting file preview::",error);
+            return false
+        }
     }
 }
 

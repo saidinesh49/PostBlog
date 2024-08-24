@@ -37,7 +37,7 @@ function PostForm({ post }) {
         }
         const dbPost = await appwriteService.updatePost(post.$id, {
           ...data,
-          featuredImage: file ? file.$id : undefined,
+          featuredImage: file ? file : undefined,
         });
         console.log('Updated post:', dbPost);
         if (dbPost) {
@@ -45,11 +45,11 @@ function PostForm({ post }) {
         }
       } else {
         // Create new post
-        console.log('Creating new post');
+        console.log('Creating new post',userData);
         const dbPost = await appwriteService.createPost({
           ...data,
-          userId: userData.$id,
-          featuredImage: file ? file.$id : undefined, // Assign the file ID
+          userId: userData.userData.$id,
+          featuredImage: file ? file : undefined, // Assign the file ID
         });
         console.log('Created post:', dbPost);
 

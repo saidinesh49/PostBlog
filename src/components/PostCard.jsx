@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import appwriteService from '../appwrite/config'
 import { Link } from 'react-router-dom'
 
 function PostCard({$id, title, featuredImage}) {
+  useEffect(() =>{
+    console.log('$id is: ',$id,"  and title is:",title,' and featuredImage is:',featuredImage);
+
+  },[]);
   return (
     <Link to={`/post/${$id}`}>
         <div className='w-full bg-gray-200 rounded-xl p-4'>

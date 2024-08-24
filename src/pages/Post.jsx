@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import appwriteService from '../appwrite/config'
 import { Button, Container } from '../components/index'
 import parse from 'html-react-parser'
@@ -12,9 +12,10 @@ export default function Post() {
 
   const userData=useSelector((state)=>state.auth.userData)
 
-  const isAuth=post && userData? post.$id===userData.$id: false;
+  const isAuth=post && userData? post.userId===userData.userData.$id: false;
 
   useEffect(()=>{
+    console.log(post.userId,' The userdata is:',userData.userData.$id);
     if(slug){
         appwriteService.getPost(slug).then((post)=>{
             if(post) setPost(post)
@@ -32,12 +33,12 @@ export default function Post() {
      });
   }
 
-  return post? (
+  return post!=""? (
     <div className='py-8'>
         <Container>
             <div className='w-full flex justify-center mb-4 relative border rounded-xl p-2'>
                 <img 
-                src={appwriteService.getFilePreview(post.featuredImage)} 
+                src={appwriteService.getFilePreview(post.featuredImage).href} 
                 alt={post.title} 
                 className='rounded-xl'
                 /> 
@@ -47,13 +48,14 @@ export default function Post() {
                         <Link to={`/edit-post/${post.$id}`}>
                           <Button 
                            bgColor='bg-green-500'
-                           className='mr-3'>
+                           className='mr-3 rounded-md'>
                             Edit
                           </Button>
                         </Link>
                         <Button 
                          onClick={deletepost} 
-                         bgColor='bg-red-500'>
+                         bgColor='bg-red-500' 
+                         className='rounded-md'>
                           Delete
                         </Button>
                     </div>
@@ -68,5 +70,5 @@ export default function Post() {
             </div>
         </Container>
     </div>
-  ) : null;
+  ) : (<div className='flex flex-col items-center font-bold text-lg py-4'>Loading...</div>);
 }

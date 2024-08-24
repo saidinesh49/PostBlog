@@ -17,17 +17,26 @@ function Login() {
     setError("");
     try{
         const session=await authService.login(data)
-        if(session){
+        console.log("session recieved: ",session);
+        if(session && session.$id){
             const userData=authService.getCurrentUser()
-            if(userData)  dispatch(authLogin.login(userData))
+            if(userData)  
+            {dispatch(authLogin.login(userData))
+            console.log("Navigating to home page")
             navigate("/")
+            } else{
+              setError("failed to retrieve user data at login")
+            }
         }
         else{
-          setError(error.message);
+          setTimeout(()=>{
+            window.location.reload();
+          },1000)
+          setError('Login session not recieved');
         }
     }
     catch(error){
-
+      console.log("Error: ",error);
     }
   }
 
