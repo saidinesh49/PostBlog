@@ -29,7 +29,7 @@ function EditPost() {
      </Container>
    </div>
   
-  ) : null
+  ) : (<div className='flex flex-col items-center py-4 font-bold text-lg text-black'>Loading...</div>)
 }
 
 export default EditPost

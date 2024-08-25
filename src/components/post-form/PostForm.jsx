@@ -12,6 +12,7 @@ function PostForm({ post }) {
       slug: post?.slug || '',
       content: post?.content || '',
       status: post?.status || 'active',
+      postowner: post?.postowner || '',
     },
   });
 
@@ -41,7 +42,7 @@ function PostForm({ post }) {
         });
         console.log('Updated post:', dbPost);
         if (dbPost) {
-          navigate(`/post/${dbPost.$id}`);
+          navigate(`/post/${dbPost.postowner}/${dbPost.$id}`);
         }
       } else {
         // Create new post
@@ -50,11 +51,12 @@ function PostForm({ post }) {
           ...data,
           userId: userData.userData.$id,
           featuredImage: file ? file : undefined, // Assign the file ID
+          postowner: userData.userData.name, // Assign the user's name as the post owner's name
         });
         console.log('Created post:', dbPost);
 
         if (dbPost) {
-          navigate(`/post/${dbPost.$id}`);
+          navigate(`/post/${dbPost.postowner}/${dbPost.$id}`);
         }
       }
     } catch (error) {
@@ -66,13 +68,14 @@ function PostForm({ post }) {
   // Function to transform title into a URL-friendly slug
   const slugTransform = useCallback((value) => {
     if (value && typeof value === 'string') {
-      const userDetailSlash=String(userData.userData.name + '_')
-      return userDetailSlash + value
+      const uniqueNumber='-'+String(Math.floor(Math.random()*999)+100)
+      return value
         .trim()
         .toLowerCase()
         .replace(/[^a-zA-Z\d\s]+/g, '-')
         .replace(/\s/g, '-')
-        .replace(/^-|-$/g, ''); // Remove leading and trailing '-'
+        .replace(/^-|-$/g, '')
+        + uniqueNumber; // Remove leading and trailing '-'
     }
     return '';
   }, []);

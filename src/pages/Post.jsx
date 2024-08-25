@@ -44,7 +44,7 @@ export default function Post() {
 
                 {isAuth && (
                     <div className='absolute right-6 top-6'>
-                        <Link to={`/edit-post/${post.$id}`}>
+                        <Link to={`/edit-post/${post.postowner}/${post.$id}`}>
                           <Button 
                            bgColor='bg-green-500'
                            className='mr-3 rounded-md'>
