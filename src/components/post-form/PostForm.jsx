@@ -66,7 +66,8 @@ function PostForm({ post }) {
   // Function to transform title into a URL-friendly slug
   const slugTransform = useCallback((value) => {
     if (value && typeof value === 'string') {
-      return value
+      const userDetailSlash=String(userData.userData.name + '_')
+      return userDetailSlash + value
         .trim()
         .toLowerCase()
         .replace(/[^a-zA-Z\d\s]+/g, '-')
@@ -104,6 +105,7 @@ function PostForm({ post }) {
           label='Slug '
           placeholder='Slug'
           className='mb-4'
+          disabled
           {...register('slug', { required: true })}
           onInput={(e) => {
             setValue('slug', slugTransform(e.target.value), {

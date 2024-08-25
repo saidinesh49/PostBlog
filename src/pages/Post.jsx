@@ -15,7 +15,6 @@ export default function Post() {
   const isAuth=post && userData? post.userId===userData.userData.$id: false;
 
   useEffect(()=>{
-    console.log(post.userId,' The userdata is:',userData.userData.$id);
     if(slug){
         appwriteService.getPost(slug).then((post)=>{
             if(post) setPost(post)

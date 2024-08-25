@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function PostCard({$id, title, featuredImage}) {
   useEffect(() =>{
-    console.log('$id is: ',$id,"  and title is:",title,' and featuredImage is:',featuredImage);
+    console.log('title is:',title);
 
   },[]);
   return (
