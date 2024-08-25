@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import authService from '../../appwrite/auth';
 import { logout } from '../../store/authSlice';
@@ -8,6 +8,7 @@ function LogoutBtn() {
   const handleLogout=()=>{
     authService.logout().then(()=>{
         dispatch(logout());
+        window.location.reload(true);
     });
   }
   return (

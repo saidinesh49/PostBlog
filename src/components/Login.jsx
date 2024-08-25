@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {login as authLogin } from '../store/authSlice'
@@ -8,7 +8,7 @@ import authService from '../appwrite/auth'
 import { useForm } from 'react-hook-form'
 
 function Login() {
-  const navigate=useNavigate();
+
   const dispatch=useDispatch();
   const [error, setError]=useState("");
   const {register, handleSubmit}=useForm()
@@ -22,21 +22,21 @@ function Login() {
             const userData=authService.getCurrentUser()
             if(userData)  
             {dispatch(authLogin.login(userData))
-            console.log("Navigating to home page")
-            navigate("/")
             } else{
               setError("failed to retrieve user data at login")
             }
         }
-        else{
-          setTimeout(()=>{
-            window.location.reload();
-          },1000)
+        else{     
           setError('Login session not recieved');
         }
     }
     catch(error){
       console.log("Error: ",error);
+    }
+    finally{
+      setTimeout(()=>{
+        window.location.reload(true);
+      },1000)
     }
   }
 
