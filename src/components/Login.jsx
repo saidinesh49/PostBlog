@@ -13,6 +13,16 @@ function Login() {
   const [error, setError]=useState("");
   const {register, handleSubmit}=useForm()
 
+
+  const handleGoogleSignin=async ()=>{
+    try{
+      const googleLogindetails=await authService.googleSignin();
+      console.log('These are login details send by google: ',googleLogindetails);
+    }catch(error){
+      console.log('Failed to login with Google!',error);
+    }
+  }
+
   const login=async(data)=>{
     setError("");
     try{
@@ -41,7 +51,7 @@ function Login() {
   }
 
   return (
-    <div className='flex items-center justify-center w-full'>
+    <div className='py-4 flex items-center justify-center w-full'>
       <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
          <div className='mb-2 flex justify-center'>
               <span className='inline-block w-full max-w-[100px]'>
@@ -86,6 +96,13 @@ function Login() {
                 >Sign In</Button>
             </div>
         </form>
+        <p className='text-center mt-8'>or</p>
+        <Button 
+        onClick={()=>{handleGoogleSignin();}} 
+        className="my-4 py-2.5 flex flex-row justify-center w-full rounded-md space-x-3 hover:shadow-xl" bgColor='bg-black'>
+        <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
+        <span className='text-slate-50'>Continue with Google</span>
+       </Button>
       </div>
     </div>
   )

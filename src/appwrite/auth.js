@@ -58,6 +58,18 @@ export class AuthService{
       }
     }
 
+    async googleSignin(){
+      try{
+        return await this.account.createOAuth2Session(
+          'google',
+          'https://post-blog-sage.vercel.app/',
+          'https://post-blog-sage.vercel.app/failed-to-connect',
+        );
+      }catch(error){
+        console.log('Appwrite service:: googleSignin error',error);
+      }
+    }
+
 }
 
 const authService=new AuthService()

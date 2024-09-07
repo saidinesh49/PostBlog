@@ -13,6 +13,16 @@ function Signup() {
     const [error, setError]=useState("");
     const {register, handleSubmit}=useForm()  
 
+
+    const handleGoogleSignin=async ()=>{
+        try{
+          const googleLogindetails=await authService.googleSignin();
+          console.log('These are login details send by google: ',googleLogindetails);
+        }catch(error){
+          console.log('Failed to login with Google!',error);
+        }
+      }
+
     const create=async(data)=>{
         setError("");
         try{
@@ -77,6 +87,12 @@ function Signup() {
                     >Create Account</Button>
                 </div>
             </form>
+            <Button 
+                onClick={()=>{handleGoogleSignin();}} 
+                className="my-4 py-2.5 flex flex-row justify-center w-full rounded-md space-x-3 hover:shadow-xl" bgColor='bg-black'>
+                <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
+                <span className='text-slate-50'>Continue with Google</span>
+            </Button>
         </div>
     </div>
     )
