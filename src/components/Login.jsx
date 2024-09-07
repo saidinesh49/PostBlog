@@ -99,7 +99,7 @@ function Login() {
         <p className='text-center mt-8'>or</p>
         <Button 
         onClick={()=>{handleGoogleSignin();}} 
-        className="my-4 py-2.5 flex flex-row justify-center w-full rounded-md space-x-3 hover:shadow-xl" bgColor='bg-black'>
+        className="my-4 py-2.5 flex flex-row justify-center w-full rounded-md space-x-3 hover:shadow-xl bg-black">
         <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
         <span className='text-slate-50'>Continue with Google</span>
        </Button>
