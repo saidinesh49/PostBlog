@@ -89,7 +89,9 @@ function Signup() {
             </form>
             <Button 
                 onClick={()=>{handleGoogleSignin();}} 
-                className="my-4 py-2.5 flex flex-row justify-center w-full rounded-md space-x-3 hover:shadow-xl bg-slate-950">
+                className="my-4 py-2.5 flex flex-row justify-center w-full rounded-md space-x-3 hover:shadow-xl" 
+                bgColor='bg-slate-950' 
+                textColor='text-white'>
                 <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
                 <span className='text-slate-50'>Continue with Google</span>
             </Button>
